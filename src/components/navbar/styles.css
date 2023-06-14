@@ -1,0 +1,30 @@
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 70px;
+  padding: 10px 25px;
+  background-color: #662352;
+
+  border-bottom: 1px solid #2b101e;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.logo {
+  color: #ffffff;
+  font-family: "Helvetica";
+  font-size: 25px;
+  line-height: 27px;
+  font-weight: 600;
+}

@@ -1,28 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import {
-  AppStateSliceInitialState,
-  BluetoothConnection,
-  BluetoothDeviceData,
-} from "./appStateSlice.interface";
+import { AppStateSliceInitialState, Filters } from "./appStateSlice.interface";
 
 const initialState: AppStateSliceInitialState = {
-  user: {},
-  isLogin: false,
-  bluetoothConnection: {
-    filters: {
-      acceptAllDevices: true,
-      getBatteryPercent: false,
-      filterByName: "",
-    },
-    isLoading: false,
-  },
-  bluetoothDeviceData: {
-    id: null,
-    name: null,
-    connected: null,
-    batteryPercent: null,
+  searcherValue: "",
+  filters: {
+    categories: [],
+    brands: [],
   },
 };
 
@@ -30,40 +15,15 @@ export const appStateSlice = createSlice({
   name: "appState",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<object>) => {
-      state.user = action.payload;
+    setSearcherValue: (state, action: PayloadAction<string>) => {
+      state.searcherValue = action.payload;
     },
-    clearUser: (state) => {
-      state.user = initialState.user;
-    },
-    setIsLogin: (state, action: PayloadAction<boolean>) => {
-      state.isLogin = action.payload;
-    },
-    setBluetoothConnection: (
-      state,
-      action: PayloadAction<BluetoothConnection>
-    ) => {
-      state.bluetoothConnection = action.payload;
-    },
-    clearBluetoothConnection: (state) => {
-      state.bluetoothConnection = initialState.bluetoothConnection;
-    },
-    setBluetoothDeviceData: (
-      state,
-      action: PayloadAction<BluetoothDeviceData>
-    ) => {
-      state.bluetoothDeviceData = action.payload;
+    setFilters: (state, action: PayloadAction<Filters>) => {
+      state.filters = action.payload;
     },
   },
 });
 
-export const {
-  setUser,
-  clearUser,
-  setIsLogin,
-  setBluetoothConnection,
-  setBluetoothDeviceData,
-  clearBluetoothConnection,
-} = appStateSlice.actions;
+export const { setSearcherValue, setFilters } = appStateSlice.actions;
 
 export default appStateSlice.reducer;

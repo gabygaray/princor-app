@@ -1,0 +1,129 @@
+.cart-product-table-row {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 70px;
+  padding: 0 10px;
+}
+
+.cart-product-table-row-item {
+  display: flex;
+  justify-self: start;
+  align-items: start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  min-width: 110px;
+  height: 100%;
+  gap: 5px;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 30px;
+  color: #000;
+}
+
+.cart-product-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  padding: 10px;
+  border: 1px solid #f0f0f0;
+}
+
+.cart-product-image img {
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: brightness(1.2);
+  height: 70px;
+}
+
+.cart-list-product-name {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  white-space: wrap;
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.trash-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  min-width: 30px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.trash-icon-container:focus {
+  outline: none;
+  background-color: #961f1d;
+}
+
+.trash-icon-container:hover {
+  opacity: 0.8;
+}
+
+.trash-icon {
+  width: 20px;
+}
+
+.quantity-input {
+  text-align: center;
+  width: 60px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #c4c4c4;
+  transition: border-color 0.3s, box-shadow 0.3s;
+
+  color: #a2a2a2;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.quantity-input:focus {
+  border-color: #961f1d;
+  box-shadow: 0 0 5px #961f1d;
+  outline: none;
+}
+
+.quantity-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 40px;
+}
+
+.quantity-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.quantity-button:active {
+  border: 1px solid #961f1d;
+  box-shadow: 0 0 5px #961f1d;
+}
+
+.quantity-button img {
+  width: 12px;
+  height: 12px;
+}
+
+.button-rotate {
+  transform: rotate(180deg);
+}

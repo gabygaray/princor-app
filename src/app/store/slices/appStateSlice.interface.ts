@@ -1,6 +1,12 @@
 export interface AppStateSliceInitialState {
   searcherValue: string;
   filters: Filters;
+  cart: CartItem[];
+  products: {
+    data: Product[];
+    isLoading: boolean;
+    hasError: boolean;
+  };
 }
 
 export interface Filters {
@@ -28,4 +34,9 @@ export interface Category {
 export interface Brand {
   brand_id: number;
   name: string;
+}
+
+export interface CartItem {
+  quantity: number;
+  product: Product;
 }

@@ -1,6 +1,10 @@
+// import { useEffect } from "react";
+// import { useAppDispatch, useAppSelector } from "../../app/store/hooks";
+// import { fetchProducts } from "../../app/store/slices/appStateSlice";
 import { Product as IProduct } from "../../app/store/slices/appStateSlice.interface";
-import { Product } from "./components/product/Product";
+import { ProductCard } from "./components/product/Product";
 import "./styles.css";
+// import axios from "axios";
 
 const products_mock: IProduct[] = [
   {
@@ -11,7 +15,7 @@ const products_mock: IProduct[] = [
     description:
       "Elaborada con jugo de limón, liviana, reducida en calorías. Producto especialmente diseñado para el consumo gastronómico.",
     stock: 20,
-    image_id: "IMG_001.png",
+    image_id: "IMG_001",
     category: {
       category_id: 1,
       name: "Aderezos",
@@ -132,12 +136,16 @@ const products_mock: IProduct[] = [
 ];
 
 export const Marketplace = () => {
+  const handleClick = async () => {
+    console.log("hola");
+  };
+
   return (
     <div className="marketplace-container">
       <div className="sidebar"></div>
       <div className="products-container">
         {products_mock.map((prod) => (
-          <Product key={prod.product_id} product={prod} />
+          <ProductCard key={prod.product_id} product={prod} />
         ))}
       </div>
     </div>

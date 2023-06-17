@@ -1,4 +1,4 @@
-.product-container {
+.product-card-container {
   display: flex;
   flex-direction: column;
   border: 1px solid #cdcdcd;
@@ -6,11 +6,11 @@
   width: 300px;
   height: 400px;
   overflow: hidden;
+  cursor: pointer;
 }
 
-.product-container:hover {
+.product-card-container:hover {
   border: 1px solid #ab2321;
-  cursor: pointer;
 }
 
 .unity-container {

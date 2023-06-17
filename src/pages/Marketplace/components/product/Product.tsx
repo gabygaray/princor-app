@@ -1,26 +1,24 @@
 import "./styles.css";
 
 import { Product as IProduct } from "../../../../app/store/slices/appStateSlice.interface";
+import { useNavigate } from "react-router-dom";
 
 export interface ProductProps {
   product: IProduct;
 }
 
-export const Product: React.FC<ProductProps> = ({ product }) => {
-  // const productsImages= ['IMG_001.png', 'IMG_002.png']
-
+export const ProductCard: React.FC<ProductProps> = ({ product }) => {
+  const navigate = useNavigate();
   const handleSelectProduct = () => {
-    console.log(product);
+    navigate(`/products/${product.product_id}`);
   };
 
   return (
-    <div className="product-container" onClick={handleSelectProduct}>
+    <div className="product-card-container" onClick={handleSelectProduct}>
       <div className="product-image">
         <div className="unity-container">{product.unity}</div>
         <img
-          src={
-            "https://raw.githubusercontent.com/gabygaray/princor-app/a5983019d676e506383df5173ed7161408c27a79/public/vite.svg"
-          }
+          src={`https://raw.githubusercontent.com/gabygaray/princor-app/main/public/products/${product.image_id}.png`}
         />
       </div>
       <div className="product-description">

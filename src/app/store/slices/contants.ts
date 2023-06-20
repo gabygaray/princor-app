@@ -15,8 +15,8 @@ export const initialProduct: IProduct = {
 export const appStateSliceInitialState: AppStateSliceInitialState = {
   searcherValue: "",
   filters: {
-    categories: [],
-    brands: [],
+    category: null,
+    brand: null,
   },
   cart: [],
   products: {

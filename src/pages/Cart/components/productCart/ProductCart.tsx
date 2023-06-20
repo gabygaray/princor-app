@@ -3,12 +3,13 @@ import "./styles.css";
 import TrashIcon from "../../../../assets/tarrito-basura.png";
 import ArrowIcon from "../../../../assets/flecha.png";
 
-import { CartItem } from "../../../../app/store/slices/appStateSlice.interface";
 import { useAppDispatch, useAppSelector } from "../../../../app/store/hooks";
 import { setCart } from "../../../../app/store/slices/appStateSlice";
 
+import { ICartItem } from "../../../../app/store/slices/appStateSlice.interface";
+
 export interface ProductCartProps {
-  cartItem: CartItem;
+  cartItem: ICartItem;
 }
 
 export const ProductCart: React.FC<ProductCartProps> = ({ cartItem }) => {
@@ -32,16 +33,16 @@ export const ProductCart: React.FC<ProductCartProps> = ({ cartItem }) => {
         </div>
 
         <div className="cart-list-product-name">
-          {`Dulce de Leche Vacalin Repostero ${"x10 kg."}`}
+          {`${product.name.toUpperCase()} x${product.unity}`}
         </div>
       </div>
 
       <div className="cart-product-table-row-item">
-        <b>{"$13.000"}</b>
+        <b>{`$${product.price}`}</b>
       </div>
 
       <div className="cart-product-table-row-item">
-        <input className="quantity-input" type="text" />
+        <input className="quantity-input" type="text" value={quantity} />
 
         <div className="quantity-button-container">
           <div className="quantity-button button-rotate">
@@ -55,7 +56,7 @@ export const ProductCart: React.FC<ProductCartProps> = ({ cartItem }) => {
       </div>
 
       <div className="cart-product-table-row-item">
-        <b>{"$13.000"}</b>
+        <b>{`$${(product.price * quantity).toFixed(2)}`}</b>
       </div>
 
       <div className="trash-icon-container" onClick={handleRemoveFromCart}>

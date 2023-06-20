@@ -1,6 +1,6 @@
 import "./styles.css";
 
-import { Product as IProduct } from "../../../../app/store/slices/appStateSlice.interface";
+import { IProduct } from "../../../../app/store/slices/appStateSlice.interface";
 import { useNavigate } from "react-router-dom";
 
 export interface ProductProps {
@@ -18,7 +18,7 @@ export const ProductCard: React.FC<ProductProps> = ({ product }) => {
       <div className="product-image">
         <div className="unity-container">{product.unity}</div>
         <img
-          src={`https://raw.githubusercontent.com/gabygaray/princor-app/main/public/products/${product.image_id}.png`}
+          src={`https://raw.githubusercontent.com/gabygaray/princor-app/main/public/products/${"IMG_001"}.png`}
         />
       </div>
       <div className="product-description">

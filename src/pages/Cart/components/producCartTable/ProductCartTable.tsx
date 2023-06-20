@@ -20,11 +20,20 @@ export const ProductCartTable = () => {
         <div className="cart-product-table-header-item">Subtotal</div>
       </div>
 
-      <div className="cart-product-table-body">
-        {cart.map((cartItem) => (
-          <ProductCart cartItem={cartItem} />
-        ))}
-      </div>
+      {cart.length ? (
+        <div className="cart-product-table-body">
+          {cart.map((cartItem) => (
+            <ProductCart key={cartItem.id} cartItem={cartItem} />
+          ))}
+        </div>
+      ) : (
+        <div className="empty-cart-container">
+          <div> El carrito de compras esta vacío.</div>
+          <div>
+            Puedes agregar productos desde el botón agregar en el catálogo.
+          </div>
+        </div>
+      )}
     </div>
   );
 };

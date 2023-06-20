@@ -48,8 +48,8 @@ export interface AppStateSliceInitialState {
 }
 
 export interface Filters {
-  categories: ICategory[];
-  brands: IBrand[];
+  category: ICategory;
+  brand: IBrand;
 }
 
 export interface IProduct {

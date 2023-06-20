@@ -1,32 +1,39 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+
+import { useParams, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+
 import "./styles.css";
 
 import { useAppDispatch, useAppSelector } from "../../app/store/hooks";
 import { setCart } from "../../app/store/slices/appStateSlice";
 
-import {
-  CartItem,
-  IProduct,
-} from "../../app/store/slices/appStateSlice.interface";
+import { fetchProductByIdThunk } from "../../app/store/thunks/productThunks";
+
+import ArrowIcon from "../../assets/flecha.png";
+
+import { ICartItem } from "../../app/store/slices/appStateSlice.interface";
 
 export const Product = () => {
   const params = useParams();
+  const navigate = useNavigate();
 
-  const { products, cart } = useAppSelector((state) => state.appState);
+  const { productById, cart } = useAppSelector((state) => state.appState);
   const dispatch = useAppDispatch();
 
-  const [product, setProduct] = useState<IProduct>();
   const [quantity, setQuantity] = useState<number>(0);
 
   useEffect(() => {
-    const productFinded = products.data.find(
-      (pr) => pr.product_id === Number(params.productId)
-    );
+    dispatch(fetchProductByIdThunk(Number(params.productId)));
+  }, []);
 
-    setProduct(productFinded);
-  }, [products.data, params.productId]);
+  const increaseQuantity = (increase: boolean) => {
+    if (increase) {
+      setQuantity(quantity + 1);
+    } else {
+      quantity > 0 ? setQuantity(quantity - 1) : setQuantity(0);
+    }
+  };
 
   const handleQuantityChange = (e) => {
     const quantityValue = e.target.value;
@@ -35,20 +42,22 @@ export const Product = () => {
   };
 
   const addToCart = () => {
-    let currentCart: CartItem[] = cart;
-    const newProductToCart: CartItem = {
+    console.log("hola");
+    let currentCart: ICartItem[] = cart;
+    const newProductToCart: ICartItem = {
       id: uuidv4(),
-      product,
+      product: productById.data,
       quantity,
     };
 
     if (
       cart.find(
-        (cartItem) => cartItem.product.product_id === product.product_id
+        (cartItem) =>
+          cartItem.product.product_id === productById.data.product_id
       )
     ) {
       currentCart = cart.map((cartItem) => {
-        if (cartItem.product.product_id === product.product_id) {
+        if (cartItem.product.product_id === productById.data.product_id) {
           return {
             ...cartItem,
             quantity: cartItem.quantity + quantity,
@@ -57,11 +66,60 @@ export const Product = () => {
         return cartItem;
       });
     } else {
-      return (currentCart = [...cart, newProductToCart]);
+      currentCart = [...cart, newProductToCart];
     }
 
     dispatch(setCart(currentCart));
+
+    navigate("/cart");
   };
 
-  return <div className="product-container">{params.productId}</div>;
+  return (
+    <div className="product-container">
+      <div className="product-page-body-container">
+        <div className="product-image-description-container">
+          <img
+            src={`https://raw.githubusercontent.com/gabygaray/princor-app/main/public/products/${"IMG_001"}.png`}
+          />
+        </div>
+        <div className="product-aside-container">
+          <h1 className="product-page-title">
+            {productById.data.name.toUpperCase()}
+          </h1>
+          <h2 className="product-page-price">{`$${productById.data.price}`}</h2>
+
+          <div className="product-page-qty-submit-container">
+            <input
+              className="product-page-qty-input"
+              type="text"
+              onChange={handleQuantityChange}
+              value={quantity}
+            />
+            <div className="product-page-qty-button-container ">
+              <div
+                className="product-page-quantity-button button-rotate"
+                onClick={() => increaseQuantity(true)}
+              >
+                <img src={ArrowIcon} />
+              </div>
+
+              <div
+                className="product-page-quantity-button"
+                onClick={() => increaseQuantity(false)}
+              >
+                <img src={ArrowIcon} />
+              </div>
+            </div>
+            <button className="product-page-styled-button" onClick={addToCart}>
+              Agregar al Carro
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="product-footer-description">
+        <div className="product-footer-description-title">Descripción</div>
+        {productById.data.description || "Este producto no posee descripción."}
+      </div>
+    </div>
+  );
 };

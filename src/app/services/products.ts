@@ -1,17 +1,25 @@
 import axios from "axios";
 
-const urlBase = "http://127.0.0.1:53169";
+import { IProduct } from "../store/slices/appStateSlice.interface";
 
-// const api = axios.create({
-//   baseURL: urlBase,
-//   headers: {
-//     "country-code": "ar",
-//     "Access-Control-Allow-Origin": "true",
-//   },
-// });
+const urlBase = "http://localhost:58146";
 
-export const getProducts = () =>
-  fetch(`/api/alumno`)
+export const fetchProducts = () =>
+  axios
+    .get(`${urlBase}/api/product`)
     .then((response) => response)
-    .then((data) => console.log(data))
     .catch((e) => console.log(e));
+
+export const fetchProductById = (id: number) =>
+  axios
+    .get(`${urlBase}/api/product/` + id)
+    .then((response) => response)
+    .catch((e) => console.log(e));
+
+export const updateProductById = (data: Partial<IProduct>) => {
+  const { product_id: id, ...rest } = data;
+  axios
+    .put(`${urlBase}/api/product/` + id, rest)
+    .then((response) => response)
+    .catch((e) => console.log(e));
+};

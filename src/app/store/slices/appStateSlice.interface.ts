@@ -1,20 +1,58 @@
 export interface AppStateSliceInitialState {
   searcherValue: string;
   filters: Filters;
-  cart: CartItem[];
+  cart: ICartItem[];
   products: {
-    data: Product[];
+    data: IProduct[];
+    isLoading: boolean;
+    hasError: boolean;
+  };
+  productById: {
+    data: IProduct;
+    isLoading: boolean;
+    hasError: boolean;
+  };
+  updateProductState: {
+    isLoading: boolean;
+    hasError: boolean;
+  };
+  customerFormData: ICustomer;
+  customers: {
+    data: ICustomer[];
+    isLoading: boolean;
+    hasError: boolean;
+  };
+  customerByDni: {
+    data: ICustomer;
+    isLoading: boolean;
+    hasError: boolean;
+  };
+  createCustomer: {
+    isLoading: boolean;
+    hasError: boolean;
+  };
+  updateCustomerByDni: {
+    isLoading: boolean;
+    hasError: boolean;
+  };
+  brands: {
+    data: IBrand[];
+    isLoading: boolean;
+    hasError: boolean;
+  };
+  categories: {
+    data: ICategory[];
     isLoading: boolean;
     hasError: boolean;
   };
 }
 
 export interface Filters {
-  categories: Category[];
-  brands: Brand[];
+  categories: ICategory[];
+  brands: IBrand[];
 }
 
-export interface Product {
+export interface IProduct {
   product_id: number;
   name: string;
   price: number;
@@ -22,21 +60,31 @@ export interface Product {
   description: string;
   stock: number;
   image_id: string;
-  category: Category;
-  brand: Brand;
+  category_id: number;
+  brand_id: number;
 }
 
-export interface Category {
+export interface ICategory {
   category_id: number;
   name: string;
 }
 
-export interface Brand {
+export interface IBrand {
   brand_id: number;
   name: string;
 }
 
-export interface CartItem {
+export interface ICartItem {
+  id: number;
   quantity: number;
-  product: Product;
+  product: IProduct;
+}
+
+export interface ICustomer {
+  dni: number;
+  name: string;
+  lastname: string;
+  address: string;
+  telephone: number;
+  email: string;
 }

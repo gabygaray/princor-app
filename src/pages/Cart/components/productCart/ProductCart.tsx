@@ -1,8 +1,27 @@
 import "./styles.css";
-import TrashIcon from "../../../../public/tarrito-basura.png";
-import ArrowIcon from "../../../../public/flecha.png";
 
-export const ProductCart = ({ product }) => {
+import TrashIcon from "../../../../assets/tarrito-basura.png";
+import ArrowIcon from "../../../../assets/flecha.png";
+
+import { CartItem } from "../../../../app/store/slices/appStateSlice.interface";
+import { useAppDispatch, useAppSelector } from "../../../../app/store/hooks";
+import { setCart } from "../../../../app/store/slices/appStateSlice";
+
+export interface ProductCartProps {
+  cartItem: CartItem;
+}
+
+export const ProductCart: React.FC<ProductCartProps> = ({ cartItem }) => {
+  const { id, product, quantity } = cartItem;
+
+  const { cart } = useAppSelector((state) => state.appState);
+  const dispatch = useAppDispatch();
+
+  const handleRemoveFromCart = () => {
+    const updatedCart = cart.filter((cartItem) => cartItem.id !== id);
+    dispatch(setCart(updatedCart));
+  };
+
   return (
     <div className="cart-product-table-row">
       <div className="cart-product-table-row-item" style={{ width: "100%" }}>
@@ -39,7 +58,7 @@ export const ProductCart = ({ product }) => {
         <b>{"$13.000"}</b>
       </div>
 
-      <div className="trash-icon-container">
+      <div className="trash-icon-container" onClick={handleRemoveFromCart}>
         <img className="trash-icon" src={TrashIcon} />
       </div>
     </div>

@@ -1,6 +1,6 @@
 import "./styles.css";
 
-import PrincorLogo from "../../../public/princor-logo.png";
+import PrincorLogo from "../../assets/princor-logo.png";
 
 export const Navbar = () => {
   return (

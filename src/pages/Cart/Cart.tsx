@@ -1,37 +1,37 @@
-import { ProductCart } from "./components/ProductCart";
+import { useState } from "react";
+import "./styles.css";
+
+import { CustomerRegister } from "./components/customerRegister/CustomerRegister";
+import { ProductCartTable } from "./components/producCartTable/ProductCartTable";
 
 export const Cart = () => {
+  const [step, setStep] = useState(1);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (step === 1) {
+      return setStep(2);
+    } else {
+      console.log("comprar");
+    }
+  };
+
   return (
     <div className="cart-container">
       <div className="cart-container-body">
-        <div className="cart-product-table">
-          {/* HEADER */}
-          <div className="cart-product-table-header">
-            <div
-              className="cart-product-table-header-item"
-              style={{ width: "100%" }}
-            >
-              Producto
-            </div>
-            <div className="cart-product-table-header-item">Precio</div>
-            <div className="cart-product-table-header-item">Cantidad</div>
-            <div className="cart-product-table-header-item">Subtotal</div>
-          </div>
-          {/* BODY */}
-          <ProductCart product={""} />
-          <ProductCart product={""} />
-          <ProductCart product={""} />
-          <ProductCart product={""} />
-          <ProductCart product={""} />
-          <ProductCart product={""} />
-          <ProductCart product={""} />
-          <ProductCart product={""} />
-          <ProductCart product={""} />
-          <ProductCart product={""} />
-          <ProductCart product={""} />
-        </div>
+        {step === 1 ? <ProductCartTable /> : <CustomerRegister />}
       </div>
-      <div className="summary-container"></div>
+      <div className="summary-container">
+        <div className="cart-total">
+          <div>{"Total"}</div>
+          <div>{"$13.000"}</div>
+        </div>
+
+        <button className="cart-styled-button" onClick={handleSubmit}>
+          {step === 1 ? "Confirmar pedido" : "Finalizar compra"}
+        </button>
+      </div>
     </div>
   );
 };

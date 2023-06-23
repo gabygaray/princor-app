@@ -18,7 +18,7 @@ export const ProductCard: React.FC<ProductProps> = ({ product }) => {
       <div className="product-image">
         <div className="unity-container">{product.unity}</div>
         <img
-          src={`https://raw.githubusercontent.com/gabygaray/princor-app/main/public/products/${"IMG_001"}.png`}
+          src={`https://raw.githubusercontent.com/gabygaray/princor-images-rep/main/images/${product.image_id}.png`}
         />
       </div>
       <div className="product-description">

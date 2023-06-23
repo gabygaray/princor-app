@@ -34,11 +34,11 @@ export const appStateSliceInitialState: AppStateSliceInitialState = {
     hasError: false,
   },
   customerFormData: {
-    dni: 0,
+    dni: "",
     name: "",
     lastname: "",
     address: "",
-    telephone: 0,
+    telephone: "",
     email: "",
   },
   customers: {

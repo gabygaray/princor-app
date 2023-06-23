@@ -32,7 +32,12 @@ export const fetchCustomerByDniThunk = createAsyncThunk(
 export const createCustomerThunk = createAsyncThunk(
   "app/createCustomer",
   async (data: ICustomer) => {
-    const response = await createCustomer(data);
+    const validateData: ICustomer = {
+      ...data,
+      dni: Number(data.dni),
+    };
+
+    const response = await createCustomer(validateData);
     return response;
   }
 );
@@ -42,7 +47,7 @@ export const updateCustomerByDniThunk = createAsyncThunk(
   "app/updateCustomerByDni",
   async (data: Partial<ICustomer>) => {
     const { dni, ...rest } = data;
-    const response = await updateCustomerByDni(dni, rest);
+    const response = await updateCustomerByDni(Number(dni), rest);
     return response;
   }
 );

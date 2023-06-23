@@ -61,32 +61,54 @@ export const Marketplace = () => {
       <div className="sidebar">
         <div className="filters">
           <h2 className="filter-title">FILTROS</h2>
+
           <div className="filter">
             <h4>Categorías</h4>
             {categories.data.map((cat) => (
-              <div
-                className={`${
-                  filters.category?.category_id === cat.category_id &&
-                  "filter-active"
-                }`}
-                key={cat.category_id}
-                onClick={() => setCategoryFilter(cat)}
-              >
-                {firstLetterUpperCase(cat.name)}
+              <div key={cat.category_id} className="filter-value-container">
+                <div
+                  className={`filter-value ${
+                    filters.category?.category_id === cat.category_id &&
+                    "filter-active"
+                  }`}
+                  key={cat.category_id}
+                  onClick={() => setCategoryFilter(cat)}
+                >
+                  {firstLetterUpperCase(cat.name)}
+                </div>
+                {filters.category?.category_id === cat.category_id && (
+                  <div
+                    className="delete-filter-container"
+                    onClick={() => setCategoryFilter(null)}
+                  >
+                    X
+                  </div>
+                )}
               </div>
             ))}
           </div>
           <div className="filter">
             <h4>Marcas</h4>
             {brands.data.map((brand) => (
-              <div
-                className={`${
-                  filters.brand?.brand_id === brand.brand_id && "filter-active"
-                }`}
-                key={brand.brand_id}
-                onClick={() => setBrandFilter(brand)}
-              >
-                {firstLetterUpperCase(brand.name)}
+              <div key={brand.brand_id} className="filter-value-container">
+                <div
+                  className={`filter-value ${
+                    filters.brand?.brand_id === brand.brand_id &&
+                    "filter-active"
+                  }`}
+                  key={brand.brand_id}
+                  onClick={() => setBrandFilter(brand)}
+                >
+                  {firstLetterUpperCase(brand.name)}
+                </div>
+                {filters.brand?.brand_id === brand.brand_id && (
+                  <div
+                    className="delete-filter-container"
+                    onClick={() => setBrandFilter(null)}
+                  >
+                    X
+                  </div>
+                )}
               </div>
             ))}
           </div>

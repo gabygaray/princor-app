@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { useParams, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { useSnackbar } from "notistack";
 
 import "./styles.css";
 
@@ -20,6 +21,7 @@ export const Product = () => {
 
   const { productById, cart } = useAppSelector((state) => state.appState);
   const dispatch = useAppDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [quantity, setQuantity] = useState<number>(0);
 
@@ -37,18 +39,22 @@ export const Product = () => {
 
   const handleQuantityChange = (e) => {
     const quantityValue = e.target.value;
-
-    setQuantity(quantityValue);
+    setQuantity(Number(quantityValue));
   };
 
   const addToCart = () => {
-    console.log("hola");
     let currentCart: ICartItem[] = cart;
     const newProductToCart: ICartItem = {
       id: uuidv4(),
       product: productById.data,
       quantity,
     };
+
+    if (quantity < 1) {
+      return enqueueSnackbar("Debes agregar por lo menos una unidad.", {
+        variant: "error",
+      });
+    }
 
     if (
       cart.find(
@@ -71,6 +77,10 @@ export const Product = () => {
 
     dispatch(setCart(currentCart));
 
+    enqueueSnackbar("Producto agregado con éxito.", {
+      variant: "success",
+    });
+
     navigate("/cart");
   };
 
@@ -78,8 +88,11 @@ export const Product = () => {
     <div className="product-container">
       <div className="product-page-body-container">
         <div className="product-image-description-container">
+          <div className="unity-container-product-page">
+            {productById.data.unity}
+          </div>
           <img
-            src={`https://raw.githubusercontent.com/gabygaray/princor-app/main/public/products/${"IMG_001"}.png`}
+            src={`https://raw.githubusercontent.com/gabygaray/princor-images-rep/main/images/${productById.data.image_id}.png`}
           />
         </div>
         <div className="product-aside-container">

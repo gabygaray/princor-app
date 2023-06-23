@@ -3,23 +3,47 @@ import { useNavigate } from "react-router-dom";
 
 import "./styles.css";
 
+import { useAppDispatch, useAppSelector } from "../../app/store/hooks";
+import { createCustomerThunk } from "../../app/store/thunks/customerThunks";
+
 import { CustomerRegister } from "./components/customerRegister/CustomerRegister";
 import { ProductCartTable } from "./components/producCartTable/ProductCartTable";
-import { useAppSelector } from "../../app/store/hooks";
+import { useSnackbar } from "notistack";
 
 export const Cart = () => {
   const navigate = useNavigate();
-  const { cart } = useAppSelector((state) => state.appState);
+  const { cart, customerFormData } = useAppSelector((state) => state.appState);
+  const dispatch = useAppDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [step, setStep] = useState(1);
+
+  const validateForm = () => {
+    const values = Object.values(customerFormData);
+
+    if (values.every((value) => value)) {
+      return true;
+    } else {
+      enqueueSnackbar("Debes completar todos los campos", {
+        variant: "error",
+      });
+      return false;
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (step === 1) {
-      return setStep(2);
+      if (cart.length > 0) {
+        return setStep(2);
+      } else {
+        enqueueSnackbar("Debes agregar por lo menos un producto.", {
+          variant: "error",
+        });
+      }
     } else {
-      console.log("comprar");
+      if (validateForm()) dispatch(createCustomerThunk(customerFormData));
     }
   };
 

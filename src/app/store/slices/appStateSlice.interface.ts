@@ -81,10 +81,10 @@ export interface ICartItem {
 }
 
 export interface ICustomer {
-  dni: number;
+  dni: number | string;
   name: string;
   lastname: string;
   address: string;
-  telephone: number;
+  telephone: number | string;
   email: string;
 }

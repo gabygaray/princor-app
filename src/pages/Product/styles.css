@@ -19,12 +19,32 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   border-radius: 8px;
   border: 1px solid #cdcdcd;
   min-width: 60%;
   height: 500px;
   padding: 10px;
   overflow: hidden;
+}
+
+.unity-container-product-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 200px;
+  height: 60px;
+  background-color: rgba(185, 18, 15, 0.79);
+  border-radius: 8px;
+  opacity: 1;
+  z-index: 10;
+
+  right: 10px;
+  top: 10px;
+
+  font-size: 25px;
+  font-weight: 600;
 }
 
 .product-image-description-container img {

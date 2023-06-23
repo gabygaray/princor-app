@@ -35,13 +35,11 @@ export const Cart = () => {
     e.preventDefault();
 
     if (step === 1) {
-      if (cart.length > 0) {
-        return setStep(2);
-      } else {
-        enqueueSnackbar("Debes agregar por lo menos un producto.", {
-          variant: "error",
-        });
-      }
+      cart.length
+        ? setStep(2)
+        : enqueueSnackbar("Debes agregar por lo menos un producto.", {
+            variant: "error",
+          });
     } else {
       if (validateForm()) dispatch(createCustomerThunk(customerFormData));
     }
